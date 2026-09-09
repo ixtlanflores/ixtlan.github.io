@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IXTLÁN — Actor, Performer and Visual Artist</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;0,700;1,400&display=block" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            overflow-y: scroll;
+        }
+
+        body {
+            font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+            line-height: 1.6;
+            color: #e0e0e0;
+            background-color: #000000;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: #000000;
+            color: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.6);
+            border-bottom: 1px solid #222;
+        }
+
+        .header-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        header h1 {
+            display: inline-block;
+            font-size: 1.6rem;
+            letter-spacing: 2px;
+            margin: 0;
+            background: linear-gradient(90deg,
+                #f6e27a 0%,
+                #d4a017 25%,
+                #fff3b0 50%,
+                #b8860b 75%,
+                #f9d976 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+        }
+
+        header p {
+            font-style: italic;
+            color: #e0a87e;
+            margin: 2px 0 0;
+            font-size: 0.9rem;
+        }
+
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 700;
+            padding: 10px 18px;
+            display: block;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+            cursor: pointer;
+        }
+
+        nav a:hover {
+            background-color: #e0a87e;
+            color: #000;
+        }
+
+        nav a.active {
+            background-color: #e0a87e;
+            color: #000;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        section {
+            background-color: #111;
+            padding: 40px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            border: 1px solid #222;
+        }
+
+        .gold-metallic {
+            background: linear-gradient(90deg,
+                #f6e27a 0%,
+                #d4a017 25%,
+                #fff3b0 50%,
+                #b8860b 75%,
+                #f9d976 100%);
+        }
+
+        section h2 {
+            position: relative;
+            color: #fff;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+        }
+
+        section h2::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg,
+                #f6e27a 0%,
+                #d4a017 25%,
+                #fff3b0 50%,
+                #b8860b 75%,
+                #f9d976 100%);
+            border-radius: 2px;
+        }
+
+        .photo-placeholder {
+            width: 100%;
+            max-width: 300px;
+            height: 300px;
+            margin: 20px auto;
+            background-color: #1a1a1a;
+            border: 2px dashed #555;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .video-placeholder {
+            width: 100%;
+            height: 300px;
+            margin: 20px 0;
+            background-color: #0a0a0a;
+            border: 2px dashed #555;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .video-embed {
+            position: relative;
+            width: 100%;
+            margin: 20px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            aspect-ratio: 16 / 9;
+            background-color: #000;
+        }
+
+        .video-embed iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .video-card {
+            width: 100%;
+            max-width: 520px;
+            margin: 20px auto;
+            background-color: #0f0f0f;
+            border: 1px solid #333;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .video-card .thumb {
+            position: relative;
+            display: block;
+            aspect-ratio: 16 / 9;
+            background-color: #000;
+            overflow: hidden;
+        }
+
+        .video-card .thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-card .thumb .play {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background-color: rgba(0,0,0,0.65);
+            border: 2px solid rgba(255,255,255,0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.1rem;
+            padding-left: 4px;
+        }
+
+        .video-card .thumb:hover .play {
+            background-color: rgba(224,168,126,0.85);
+        }
+
+        .video-card .vc-content {
+            padding: 16px 18px;
+        }
+
+        .video-card .vc-title {
+            color: #fff;
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        .video-card .vc-meta {
+            color: #999;
+            font-size: 0.8rem;
+            margin-top: 4px;
+        }
+
+        .video-card .vc-desc {
+            color: #ccc;
+            font-size: 0.85rem;
+            margin-top: 10px;
+        }
+
+        .video-card .watch-btn {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 8px 16px;
+            border: 1px solid #e0a87e;
+            color: #e0a87e;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-decoration: none;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .video-card .watch-btn:hover {
+            background-color: #e0a87e;
+            color: #000;
+        }
+
+        .bio-content {
+            margin-top: 20px;
+        }
+
+        .highlights-list {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .highlights-list li {
+            position: relative;
+            padding: 15px 15px 15px 25px;
+            background-color: #1a1a1a;
+            margin-bottom: 10px;
+            border-left: 4px solid transparent;
+            border-radius: 4px;
+        }
+
+        .highlights-list li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(90deg,
+                #f6e27a 0%,
+                #d4a017 25%,
+                #fff3b0 50%,
+                #b8860b 75%,
+                #f9d976 100%);
+            border-top-left-radius: 4px;
+            border-bottom-left-radius: 4px;
+        }
+
+        .highlights-list span {
+            font-weight: bold;
+            color: #e0a87e;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .grid-photo {
+            height: 200px;
+            background-color: #1a1a1a;
+            border: 2px dashed #555;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 0.8rem;
+            text-align: center;
+        }
+
+        .featured-wrap {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .featured-card {
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 22px;
+        }
+
+        .featured-card h3 {
+            color: #fff;
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+        }
+
+        .featured-card .tag {
+            display: inline-block;
+            color: #e0a87e;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border: 1px solid #e0a87e;
+            border-radius: 4px;
+            padding: 2px 8px;
+            margin-bottom: 12px;
+        }
+
+        .featured-card .role-line {
+            color: #fff;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .featured-card .meta {
+            color: #999;
+            font-size: 0.82rem;
+        }
+
+        .featured-card p.desc {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+
+        .featured-card .links {
+            margin-top: 12px;
+        }
+
+        .featured-card .links a {
+            color: #e0a87e;
+            text-decoration: none;
+            font-size: 0.85rem;
+        }
+
+        .featured-card .links a:hover {
+            color: #fff;
+        }
+
+        .ticket-btn {
+            display: inline-block;
+            margin-top: 14px;
+            padding: 10px 20px;
+            background: linear-gradient(90deg,
+                #f6e27a 0%,
+                #d4a017 25%,
+                #fff3b0 50%,
+                #b8860b 75%,
+                #f9d976 100%);
+            color: #000;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: filter 0.3s;
+        }
+
+        .ticket-btn:hover {
+            filter: brightness(1.15);
+        }
+
+        .contact-item {
+            margin-top: 20px;
+        }
+
+        .contact-item a {
+            color: #e0a87e;
+            text-decoration: none;
+        }
+
+        .contact-item a:hover {
+            color: #fff;
+        }
+
+        .block-caption {
+            color: #fff;
+            font-weight: 700;
+            font-size: 1rem;
+            padding-bottom: 10px;
+            margin-top: 15px;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+            margin-top: 25px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+
+        table caption {
+            text-align: left;
+            font-weight: 700;
+            color: #fff;
+            padding-bottom: 10px;
+            font-size: 1rem;
+        }
+
+        th, td {
+            border: 1px solid #333;
+            padding: 5px 12px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background-color: #1a1a1a;
+            color: #e0a87e;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        td {
+            color: #e0e0e0;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #0f0f0f;
+        }
+
+        tbody tr:hover {
+            background-color: #222;
+        }
+
+        .source-note {
+            margin-top: 12px;
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        .source-note a {
+            color: #e0a87e;
+            text-decoration: none;
+        }
+
+        .source-note a:hover {
+            color: #fff;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #000;
+            border-top: 1px solid #222;
+            margin-top: 40px;
+        }
+
+        footer p {
+            display: inline-block;
+            background: linear-gradient(90deg,
+                #f6e27a 0%,
+                #d4a017 25%,
+                #fff3b0 50%,
+                #b8860b 75%,
+                #f9d976 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-inner">
+            <div>
+                <h1>IXTLÁN</h1>
+                <p>Actor, Performer and Visual Artist</p>
+            </div>
+            <nav>
+                <a class="active" data-tab="bio">Bio</a>
+                <a data-tab="highlights">Theater/Stage</a>
+                <a data-tab="tvfilm">TV/Film</a>
+                <a data-tab="gallery">Gallery</a>
+                <a data-tab="performance">Performance Art</a>
+                <a data-tab="contact">Contact Me</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- Bio Section -->
+        <section id="bio">
+            <h2>Bio</h2>
+            <div class="photo-placeholder">[ Headshot Photo Placeholder ]</div>
+            <div class="bio-content">
+                <p>Welcome to my acting portfolio! I am a passionate and dedicated actor with experience in stage, film, and television.</p>
+                <p>Here you can replace this text with your own personal biography, background, training, and career overview. Talk about where you trained, notable skills, and what drives you as a performer.</p>
+            </div>
+        </section>
+
+        <!-- Theater/Stage Section -->
+        <section id="highlights">
+            <h2>Theater/Stage</h2>
+            <ul class="highlights-list">
+                <li><span>Manning</span> — Puppet Design / Puppeteer — West Coast Premiere, Crowded Fire Theater (Sep 5–Sep 26, 2026).</li>
+                <li><span>Manahatta</span> — Se-ket-tu-may-qua / Luke — premiered at <strong>three venues</strong>: Oregon Shakespeare Festival (world premiere, 2018), Yale Repertory Theatre (East Coast premiere, 2020), and Aurora Theatre Company (Bay Area premiere, 2024).</li>
+                <li><span>A Midsummer Night's Dream</span> — Demetrius / Flute — Marin Shakespeare Company (2025).</li>
+            </ul>
+            <div class="block-caption">Acting highlights</div>
+            <div class="featured-wrap">
+                <div class="featured-card">
+                    <h3>Manning</h3>
+                    <span class="tag">West Coast Premiere</span>
+                    <div class="role-line">Role: Puppet Design / Puppeteer</div>
+                    <div class="meta">Crowded Fire Theater · Potrero Stage, San Francisco · Sep 5–Sep 26</div>
+                    <p class="desc">Bringing to life a hawk puppet as companion and witness in this puppet, movement, and live-music production.</p>
+                    <a class="ticket-btn" href="https://crowdedfiretheater.ludus.com/index.php?show_id=200513116" target="_blank" rel="noopener noreferrer">Get Tickets Now</a>
+                    <div class="links"><a href="https://www.crowdedfire.org/manning/" target="_blank" rel="noopener noreferrer">crowdedfire.org/manning</a></div>
+                </div>
+                <div class="featured-card">
+                    <h3>Manahatta</h3>
+                    <div class="role-line">Role: Se-ket-tu-may-qua / Luke</div>
+                    <div class="meta">Oregon Shakespeare Festival (2018) · Yale Repertory Theatre (2020) · Aurora Theatre Company (2024)</div>
+                    <p class="desc">Originated the role in the world premiere, then reprised it for the East Coast and Bay Area premieres.</p>
+                </div>
+                <div class="featured-card">
+                    <h3>A Midsummer Night's Dream</h3>
+                    <div class="role-line">Role: Demetrius / Flute</div>
+                    <div class="meta">Marin Shakespeare Company · Forest Meadows Amphitheatre, San Rafael</div>
+                    <p class="desc">Debut with Marin Shakespeare Company.</p>
+                </div>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <caption>Theatre Performances</caption>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Production</th>
+                            <th>Role</th>
+                            <th>Theatre company / venue / city</th>
+                            <th>Type / notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td><em>The Desk Set</em></td>
+                            <td>Bunny</td>
+                            <td>University of Wisconsin–Whitewater; Whitewater, WI</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><em>Sleeping Beauty</em></td>
+                            <td>Nyssa Aurora</td>
+                            <td>Vortex Rep</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><em>Richard III</em></td>
+                            <td>Lady Anne</td>
+                            <td>Mitchell Theatre / UW–Madison; Mitchell Theatre; Madison, WI</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><em>Hamlet</em></td>
+                            <td>Ophelia</td>
+                            <td>City Theatre</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><em>A Christmas Carol</em></td>
+                            <td>Mrs. Cratchit</td>
+                            <td>CTM</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><em>The Prison Where I Live</em></td>
+                            <td>Mary McVicker</td>
+                            <td>Forward Theatre Co.</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><em>The Excavation of Mary Anning</em></td>
+                            <td>Henry De la Beche / Cuvier</td>
+                            <td>Ashland New Play Festival; Ashland, OR</td>
+                            <td>New-play festival; two roles</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><em>Rumpelstiltskin</em></td>
+                            <td>Cinderella / Prince</td>
+                            <td>The Acting Company</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><em>The Merry Wives of Windsor</em></td>
+                            <td>Fenton</td>
+                            <td>Marysville Community Auditorium; Community Auditorium; Marysville, CA</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><em>West Side Story</em></td>
+                            <td>Chino</td>
+                            <td>Marysville Community Auditorium; Community Auditorium; Marysville, CA</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><em>Last of the Caucasians</em></td>
+                            <td></td>
+                            <td>The Barrow Group Theater Company &amp; School; New York, NY</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><em>Delusion: The Blood Rite</em></td>
+                            <td></td>
+                            <td>Haunted Play; Los Angeles, CA</td>
+                            <td>Haunted-theatre production</td>
+                        </tr>
+                        <tr>
+                            <td>Dec. 6–30, 2018</td>
+                            <td><em>A Noh Christmas Carol</em></td>
+                            <td>Jakubei / Mashima</td>
+                            <td>Theatre of Yugen; NOHSpace; San Francisco, CA</td>
+                            <td>Noh adaptation; run Dec. 6–30</td>
+                        </tr>
+                        <tr>
+                            <td>Mar. 28–Apr. 27, 2019</td>
+                            <td><em>Helen</em></td>
+                            <td>Menelaus</td>
+                            <td>Theatre of Yugen; NOHSpace; San Francisco, CA</td>
+                            <td>Full production</td>
+                        </tr>
+                        <tr>
+                            <td>Jul. 2019</td>
+                            <td><em>Witch Hunt</em></td>
+                            <td>John Proctor / John</td>
+                            <td>Those Women Productions; La Val's Subterranean Theater; Berkeley, CA</td>
+                            <td>World premiere; ran through Aug. 4, 2019</td>
+                        </tr>
+                        <tr>
+                            <td>Oct. 3–Nov. 2, 2019</td>
+                            <td><em>Puppets &amp; Poe: Devised Defiance</em></td>
+                            <td>Performer / Puppet Master</td>
+                            <td>Theatre of Yugen; NOHSpace; San Francisco, CA</td>
+                            <td>Devised physical/puppet theatre; six-person cast</td>
+                        </tr>
+                        <tr>
+                            <td>Mar. 28–Oct. 27, 2018</td>
+                            <td><em>Manahatta</em></td>
+                            <td>Se-ket-tu-may-qua / Luke / Ensemble</td>
+                            <td>Oregon Shakespeare Festival; Thomas Theatre; Ashland, OR</td>
+                            <td><strong>World premiere</strong>; originated the role</td>
+                        </tr>
+                        <tr>
+                            <td>2018</td>
+                            <td><em>Othello</em></td>
+                            <td>Understudy for Cassio</td>
+                            <td>Oregon Shakespeare Festival; Ashland, OR</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Jan. 24–Feb. 15, 2020</td>
+                            <td><em>Manahatta</em></td>
+                            <td>Se-ket-tu-may-qua / Luke</td>
+                            <td>Yale Repertory Theatre; Yale Rep; New Haven, CT</td>
+                            <td><strong>East Coast premiere</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Aug. 19, 2022</td>
+                            <td><em>BRAIDED</em></td>
+                            <td>Performer</td>
+                            <td>Theatre of Yugen / In the Margin; NOHSpace; San Francisco, CA</td>
+                            <td>Staged reading; co-writer</td>
+                        </tr>
+                        <tr>
+                            <td>Aug. 21, 2022</td>
+                            <td><em>BRAIDED</em></td>
+                            <td>Performer</td>
+                            <td>Theatre of Yugen / In the Margin / Cal Shakes; Bruns Amphitheater; Orinda, CA</td>
+                            <td>Staged reading</td>
+                        </tr>
+                        <tr>
+                            <td>May 23, 2022</td>
+                            <td><em>The Window Affair</em></td>
+                            <td>Romeo</td>
+                            <td>PlayGround SF; San Francisco, CA</td>
+                            <td>26th Annual PlayGround Festival; staged reading</td>
+                        </tr>
+                        <tr>
+                            <td>Jul. 23–Sept. 11, 2022</td>
+                            <td><em>Much Ado About Nothing</em></td>
+                            <td>Borachio / The Holiness</td>
+                            <td>San Francisco Shakespeare Festival; multiple outdoor venues; San Francisco, CA</td>
+                            <td>Free Shakespeare in the Park; 40th anniversary season</td>
+                        </tr>
+                        <tr>
+                            <td>Feb. 2–26, 2023</td>
+                            <td><em>Pueblo Revolt</em></td>
+                            <td>Ba'homa</td>
+                            <td>AlterTheater Ensemble; Arts Research Center / Art Works Downtown; Berkeley / San Rafael, CA</td>
+                            <td><strong>World/rolling premiere</strong>; two-person production</td>
+                        </tr>
+                        <tr>
+                            <td>Apr. 27–30, 2023</td>
+                            <td><em>Daughters of Leda</em></td>
+                            <td></td>
+                            <td>UC Berkeley Theater, Dance &amp; Performance Studies; Zellerbach Playhouse; Berkeley, CA</td>
+                            <td>Puppet designer</td>
+                        </tr>
+                        <tr>
+                            <td>Apr. 7–May 7, 2023</td>
+                            <td><em>Cyrano</em></td>
+                            <td>Christian</td>
+                            <td>Aurora Theatre Company; Aurora Theatre; Berkeley, CA</td>
+                            <td>World-premiere adaptation; one of five principal actors</td>
+                        </tr>
+                        <tr>
+                            <td>Oct. 18–Nov. 12, 2023</td>
+                            <td><em>Citizen</em></td>
+                            <td>Ernesto / Marco</td>
+                            <td>Word for Word / Z Space; Z Below; San Francisco, CA</td>
+                            <td>Full production; multiple characters</td>
+                        </tr>
+                        <tr>
+                            <td>Feb. 9–Mar. 10, 2024</td>
+                            <td><em>Manahatta</em></td>
+                            <td>Se-ket-tu-may-qua / Luke</td>
+                            <td>Aurora Theatre Company; Aurora Theatre; Berkeley, CA</td>
+                            <td>Bay Area premiere</td>
+                        </tr>
+                        <tr>
+                            <td>June 13–July 13, 2025</td>
+                            <td><em>A Midsummer Night's Dream</em></td>
+                            <td>Demetrius / Flute</td>
+                            <td>Marin Shakespeare Company; Forest Meadows Amphitheatre; San Rafael, CA</td>
+                            <td>Debut with Marin Shakespeare Company</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="source-note">Source notes: <a href="https://www.theatreofyugen.org/poe">Theatre of Yugen</a> · <a href="https://www.osfashland.org/en/artist-biographies/acting-company/steven-flores.aspx">Oregon Shakespeare Festival</a> · <a href="https://www.sfchronicle.com/entertainment/article/holiday-events-throughout-the-bay-area-21175929.php">San Francisco Chronicle</a> · <a href="https://www.theatreofyugen.org/past-productions">Theatre of Yugen Archive</a> · <a href="https://www.indybay.org/newsitems/2019/06/12/18823898.php">Indybay</a> · <a href="https://kiwix.hajekad.com/content/wikipedia_en_all_maxi_2025-08/Manahatta_%28play%29">Kiwix</a> · <a href="https://playbill.com/production/manahattayale-repertory-theatre-2019-2020">Playbill</a> · <a href="https://playground-sf.org/playground-festival-playbill-may-2022/">PlayGround</a> · <a href="https://sfshakes.org/performance/free-shakes/2022-much-ado/">SF Shakespeare Festival</a> · <a href="https://townsendcenter.berkeley.edu/blog/pueblo-revolt-making-past-present-0">Townsend Center</a> · <a href="https://tdps.berkeley.edu/sites/default/files/2023_daughters_of_leda_program.pdf">UC Berkeley TdPS</a> · <a href="https://www.auroratheatre.org/view/download.php/press-room/aurora-general-press-releases/20222023-season-announcement">Aurora Theatre</a> · <a href="https://www.zspace.org/citizen-2023">Z Space</a> · <a href="https://www.marinshakespeare.org/midsummer/">Marin Shakespeare Company</a></p>
+            <div class="video-card">
+                <a class="thumb" href="https://www.youtube.com/watch?v=VuDNmPjOSic" target="_blank" rel="noopener noreferrer">
+                    <img src="https://i.ytimg.com/vi/VuDNmPjOSic/hqdefault.jpg" alt="Manahatta: Lily Gladstone and Steven Flores">
+                    <span class="play">&#9654;</span>
+                </a>
+                <div class="vc-content">
+                    <div class="vc-title">Manahatta: Lily Gladstone and Steven Flores</div>
+                    <div class="vc-meta">Yale Repertory Theatre</div>
+                    <p class="vc-desc">A behind-the-scenes look at Manahatta at Yale Rep, featuring Ixtlán as Se-ket-tu-may-qua / Luke.</p>
+                    <a class="watch-btn" href="https://www.youtube.com/watch?v=VuDNmPjOSic" target="_blank" rel="noopener noreferrer">Watch on YouTube</a>
+                </div>
+            </div>
+            <div class="video-placeholder">[ Monologue Video Placeholder ]</div>
+        </section>
+
+        <!-- TV/Film Section -->
+        <section id="tvfilm">
+            <h2>TV/Film</h2>
+            <ul class="highlights-list">
+                <li><span>The Monster Project</span> — Skinwalker — Feature film (2017)</li>
+                <li><span>It's Always Sunny in Philadelphia</span> — Native American Elder — TV series (2008, 1 episode)</li>
+                <li><span>Pose</span> — TV series</li>
+                <li><span>Raised by Wolves</span> — Taz — Feature film (2014)</li>
+                <li><span>A Killer of Men</span> — Diwata — Feature film (2014)</li>
+                <li><span>The Hypnotist</span> — Elijah's Old Patient #2 — Film (2013)</li>
+                <li><span>Dogs &amp; Me</span> — Film (2012)</li>
+            </ul>
+        </section>
+
+        <!-- Gallery Section -->
+        <section id="gallery">
+            <h2>Gallery</h2>
+            <p>Photo and video highlights from my performances.</p>
+            <div class="gallery-grid">
+                <div class="grid-photo">[ Photo 1 ]</div>
+                <div class="grid-photo">[ Photo 2 ]</div>
+                <div class="grid-photo">[ Photo 3 ]</div>
+                <div class="grid-photo">[ Photo 4 ]</div>
+                <div class="grid-photo">[ Photo 5 ]</div>
+                <div class="grid-photo">[ Photo 6 ]</div>
+            </div>
+            <div class="video-placeholder">[ Performance Video Placeholder ]</div>
+            <div class="video-placeholder">[ Behind-the-Scenes Video Placeholder ]</div>
+        </section>
+
+        <!-- Performance Art Section -->
+        <section id="performance">
+            <h2>Performance Art</h2>
+            <p>Experimental, immersive, and movement-based performance work beyond traditional acting.</p>
+            <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DTZzvTXjpf0/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#0f0f0f; border:0; border-radius:8px; margin:20px auto; max-width:540px; padding:0; width:100%;"></blockquote>
+            <script async src="//www.instagram.com/embed.js"></script>
+            <div class="video-placeholder">[ Performance Art Video Placeholder ]</div>
+            <div class="video-placeholder">[ Live Performance Video Placeholder ]</div>
+            <div class="gallery-grid">
+                <div class="grid-photo">[ Performance Art 1 ]</div>
+                <div class="grid-photo">[ Performance Art 2 ]</div>
+                <div class="grid-photo">[ Performance Art 3 ]</div>
+                <div class="grid-photo">[ Performance Art 4 ]</div>
+            </div>
+        </section>
+
+        <!-- Contact Me Section -->
+        <section id="contact">
+            <h2>Contact Me</h2>
+            <p>Get in touch for bookings, collaborations, and enquiries.</p>
+            <div class="contact-item">
+                <p><strong>Email:</strong> <a href="mailto:ixtlanjaan@gmail.com">ixtlanjaan@gmail.com</a></p>
+            </div>
+            <div class="contact-item">
+                <p><strong>Instagram:</strong> <a href="https://www.instagram.com/flowersfromouterspace" target="_blank" rel="noopener noreferrer">@flowersfromouterspace</a></p>
+            </div>
+            <div class="contact-item">
+                <p><strong>IMDb:</strong> <a href="https://www.imdb.com/name/nm5376127/" target="_blank" rel="noopener noreferrer">https://www.imdb.com/name/nm5376127/</a></p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 IXTLÁN. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function showTab(name) {
+            var names = ["bio", "highlights", "tvfilm", "gallery", "performance", "contact"];
+            names.forEach(function (n) {
+                document.getElementById(n).style.display = (n === name) ? "block" : "none";
+            });
+            var links = document.querySelectorAll("nav a");
+            links.forEach(function (a) {
+                a.classList.toggle("active", a.getAttribute("data-tab") === name);
+            });
+            window.scrollTo({ top: 0, behavior: "auto" });
+        }
+
+        document.querySelectorAll("nav a").forEach(function (a) {
+            a.addEventListener("click", function () {
+                showTab(a.getAttribute("data-tab"));
+            });
+        });
+
+        showTab("bio");
+    </script>
+
+</body>
+</html>
