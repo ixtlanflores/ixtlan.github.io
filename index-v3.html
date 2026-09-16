@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ixtlan — Actor, Performer and Visual Artist</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" href="favicon.ico">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        /* header */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background-color: #000000;
+            border-bottom: 1px solid #222;
+        }
+
+        .header-inner {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .header-logo {
+            height: 26px;
+            width: auto;
+            cursor: pointer;
+        }
+
+        nav {
+            display: flex;
+            gap: 28px;
+        }
+
+        nav a {
+            font-size: 0.72rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #ddd;
+            padding-bottom: 3px;
+            border-bottom: 1px solid transparent;
+            cursor: pointer;
+        }
+
+        nav a:hover {
+            color: #fb3c6e;
+        }
+
+        nav a.active {
+            color: #fb3c6e;
+            border-bottom-color: #fb3c6e;
+        }
+
+        @media (max-width: 640px) {
+            nav {
+                gap: 14px;
+            }
+        }
+
+        /* pages */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* hero */
+        .hero {
+            position: relative;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+
+        .hero-inner {
+            position: relative;
+            z-index: 1;
+            padding: 130px 24px 90px;
+            background: rgba(0, 0, 0, 0.55);
+            min-height: 78vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-logo {
+            max-width: 460px;
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        .hero-headline {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(2.4rem, 6vw, 4.5rem);
+            font-weight: 300;
+            letter-spacing: 1px;
+            color: #fff;
+            margin-top: 28px;
+        }
+
+        /* marquee */
+        .marquee {
+            overflow: hidden;
+            white-space: nowrap;
+            padding: 14px 0;
+            border-top: 1px solid #222;
+            border-bottom: 1px solid #222;
+            width: 100%;
+        }
+
+        .marquee span {
+            display: inline-block;
+            padding-right: 14px;
+            font-size: 0.85rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: #999;
+            animation: marquee 22s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* sections */
+        section {
+            padding: 90px 24px;
+        }
+
+        .ruled {
+            border-top: 1px solid #222;
+        }
+
+        .wrap {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        section h2.section-label {
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #aaa;
+            margin-bottom: 40px;
+        }
+
+        .page-title {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(2rem, 5vw, 3.4rem);
+            font-weight: 300;
+            letter-spacing: 1px;
+            margin-bottom: 30px;
+            color: #fff;
+        }
+
+        .casting-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 8px;
+        }
+
+        .casting-types h3 {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(1.6rem, 3vw, 2.6rem);
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            line-height: 1.15;
+            color: #fff;
+        }
+
+        .casting-photos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 18px;
+            margin-top: 60px;
+            align-items: start;
+        }
+
+        .casting-photos img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+        .caption {
+            margin-top: 18px;
+            font-size: 0.95rem;
+            color: #ccc;
+            max-width: 640px;
+        }
+
+        .casting-media {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 36px;
+            align-items: start;
+            margin-top: 70px;
+        }
+
+        .casting-media img,
+        .casting-media video {
+            width: 100%;
+            height: auto;
+        }
+
+        @media (max-width: 760px) {
+            .casting-media {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .roles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 24px;
+            margin-top: 30px;
+        }
+
+        .roles-grid .role h4 {
+            font-size: 1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 600;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #333;
+        }
+
+        .roles-grid .role p {
+            margin-top: 12px;
+            color: #bbb;
+            font-size: 0.9rem;
+        }
+
+        .banner-img {
+            margin-top: 60px;
+            width: 100%;
+        }
+
+        .roles-photos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 18px;
+            margin-top: 60px;
+        }
+
+        .roles-photos img {
+            width: 100%;
+            height: auto;
+        }
+
+        /* body text pages */
+        .prose p {
+            max-width: 720px;
+            color: #ddd;
+            margin-bottom: 18px;
+        }
+
+        .prose .lead {
+            font-size: 1.25rem;
+            color: #fff;
+        }
+
+        .contact-list {
+            list-style: none;
+            margin-top: 24px;
+        }
+
+        .contact-list li {
+            padding: 14px 0;
+            border-bottom: 1px solid #333;
+        }
+
+        .contact-list strong {
+            display: inline-block;
+            min-width: 100px;
+            color: #fff;
+        }
+
+        .contact-list a:hover {
+            color: #fb3c6e;
+        }
+
+        /* footer */
+        footer {
+            border-top: 1px solid #222;
+            padding: 50px 24px;
+            text-align: center;
+        }
+
+        .footer-nav {
+            display: flex;
+            justify-content: center;
+            gap: 36px;
+            flex-wrap: wrap;
+            margin-bottom: 18px;
+        }
+
+        .footer-nav a {
+            font-size: 0.72rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #ddd;
+            cursor: pointer;
+        }
+
+        .footer-nav a:hover {
+            color: #fb3c6e;
+        }
+
+        .made-with {
+            font-size: 0.8rem;
+            color: #777;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-inner">
+            <img class="header-logo" data-nav="home" src="https://images.squarespace-cdn.com/content/v1/693a7d59a2a7770395738123/79108f54-4ad4-47a6-9ae3-8262f144857b/I+X+T+L+A+N.png" alt="IXTLÁN">
+            <nav>
+                <a data-nav="work">Theater Work</a>
+                <a data-nav="coaching">Coaching</a>
+                <a data-nav="about">About</a>
+                <a data-nav="contact">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- Hero -->
+        <div id="page-home" class="page">
+            <div class="hero">
+                <video class="hero-bg" autoplay muted loop playsinline
+                       poster="https://images.squarespace-cdn.com/content/v1/693a7d59a2a7770395738123/58afc9cc-f815-4f08-8796-fa15459f126a/8U0A3048-2.jpeg">
+                    <source src="ixtlan-hero.mp4" type="video/mp4">
+                </video>
+                <div class="hero-inner">
+                    <img class="hero-logo" src="https://images.squarespace-cdn.com/content/v1/693a7d59a2a7770395738123/79108f54-4ad4-47a6-9ae3-8262f144857b/I+X+T+L+A+N.png" alt="IXTLÁN">
+                    <h1 class="hero-headline">Actor Artist Coach</h1>
+                </div>
+            </div>
+            <div class="marquee"><span>
+                . Actor &nbsp;. Actor &nbsp;. Actor &nbsp;. Actor &nbsp;. Actor &nbsp;. Actor &nbsp;. Actor &nbsp;. Actor &nbsp;. Actor &nbsp;. Actor &nbsp;. Actor &nbsp;. Actor &nbsp;. Actor &nbsp;. Actor &nbsp;. Actor &nbsp;. Actor
+            </span></div>
+            <section id="work-preview">
+                <div class="wrap">
+                    <h2 class="section-label">Theater Work</h2>
+                    <div class="casting-types">
+                        <h3>Otherworldly Mystic</h3>
+                        <h3>Eccentric Villain</h3>
+                        <h3>Romantic Guardian</h3>
+                        <h3>Comedic Trickster</h3>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Theater Work Page -->
+        <div id="page-work" class="page">
+            <section>
+                <div class="wrap">
+                    <h2 class="page-title">Theater Work</h2>
+                    <div class="casting-types">
+                        <h3>Otherworldly Mystic</h3>
+                        <h3>Eccentric Villain</h3>
+                        <h3>Romantic Guardian</h3>
+                        <h3>Comedic Trickster</h3>
+                    </div>
+                    <div class="casting-photos">
+                        <img src="https://images.squarespace-cdn.com/content/v1/693a7d59a2a7770395738123/58afc9cc-f815-4f08-8796-fa15459f126a/8U0A3048-2.jpeg" alt="Portrait of Ixtlan">
+                        <img src="https://images.squarespace-cdn.com/content/v1/693a7d59a2a7770395738123/c216c1ba-6021-4a1f-a900-5a6122aad837/IMG_1806.jpeg" alt="Ixtlan">
+                    </div>
+                    <p class="caption">Ixtlan with Lily Gladstone performing “Manahatta” — Yale Repertory Theater 2019</p>
+
+                    <div class="casting-media">
+                        <div>
+                            <img src="https://images.squarespace-cdn.com/content/v1/693a7d59a2a7770395738123/69e2d2d3-83c7-4355-9a7b-c2217ac27da5/45C5A03D-58AA-446C-9009-C13AB6404D3B.jpeg" alt="Ixtlan">
+                        </div>
+                        <div>
+                            <video class="media-video" controls muted playsinline width="100%"
+                                   poster="https://images.squarespace-cdn.com/content/v1/693a7d59a2a7770395738123/c216c1ba-6021-4a1f-a900-5a6122aad837/IMG_1806.jpeg">
+                                <source src="ixtlan-reel.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="ruled">
+                <div class="wrap">
+                    <h2 class="section-label">Other Roles</h2>
+                    <div class="roles-grid">
+                        <div class="role">
+                            <h4>Stunt Man</h4>
+                            <p>Physical and specialty stunt work on screen.</p>
+                        </div>
+                        <div class="role">
+                            <h4>Creature Costume &amp; Movement Expert</h4>
+                            <p>Embodied creature performance and costume movement.</p>
+                        </div>
+                        <div class="role">
+                            <h4>Puppet Builder &amp; Operator</h4>
+                            <p>Building and operating original puppets for stage and screen.</p>
+                        </div>
+                        <div class="role">
+                            <h4>Clowning</h4>
+                            <p>Physical comedy and clown technique.</p>
+                        </div>
+                    </div>
+                    <img class="banner-img" src="https://images.squarespace-cdn.com/content/v1/693a7d59a2a7770395738123/4b1944d5-828f-4aad-b506-799fff522b3c/Ixtl%C3%A1n+is+an+actor%2C+teacher%2C+stuntman+and+multidisciplinary+artist+whose+work+bridges+theatre%2C+performance+art%2C+and+embodied+ritual..png" alt="Ixtlan is an actor, teacher, stuntman and multidisciplinary artist whose work bridges theatre, performance art, and embodied ritual.">
+                    <div class="roles-photos">
+                        <img src="https://images.squarespace-cdn.com/content/v1/693a7d59a2a7770395738123/e4050a9c-1849-459e-a175-65ef5040064c/IMG_6534.jpeg" alt="Ixtlan">
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Coaching Page -->
+        <div id="page-coaching" class="page">
+            <section>
+                <div class="wrap">
+                    <h2 class="page-title">Coaching</h2>
+                    <div class="prose">
+                        <p class="lead">One-on-one actor coaching for monologues, auditions, scene study, and embodied movement.</p>
+                        <p>Ixtlán works with actors on classical text, physical presence, creature and puppet work, and grounded, truthful performance.</p>
+                        <p>Interest or booking — email below.</p>
+                        <p><strong>Email:</strong> <a href="mailto:ixtlanjaan@gmail.com" style="color:#fb3c6e;">ixtlanjaan@gmail.com</a></p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- About Page -->
+        <div id="page-about" class="page">
+            <section>
+                <div class="wrap">
+                    <h2 class="page-title">About</h2>
+                    <img class="banner-img" style="margin-top:0;" src="https://images.squarespace-cdn.com/content/v1/693a7d59a2a7770395738123/4b1944d5-828f-4aad-b506-799fff522b3c/Ixtl%C3%A1n+is+an+actor%2C+teacher%2C+stuntman+and+multidisciplinary+artist+whose+work+bridges+theatre%2C+performance+art%2C+and+embodied+ritual..png" alt="Ixtlan is an actor, teacher, stuntman and multidisciplinary artist whose work bridges theatre, performance art, and embodied ritual.">
+                    <div class="prose" style="margin-top:30px;">
+                        <p class="lead">Actor · Performer · Visual Artist</p>
+                        <p>Ixtlán is an actor, teacher, stuntman and multidisciplinary artist whose work bridges theatre, performance art, and embodied ritual.</p>
+                        <p>Across stage, film, and television, his body of work spans classical plays, world premieres, puppetry, creature performance, clowning, and experimental performance.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Contact Page -->
+        <div id="page-contact" class="page">
+            <section>
+                <div class="wrap">
+                    <h2 class="page-title">Contact</h2>
+                    <ul class="contact-list">
+                        <li><strong>Email:</strong> <a href="mailto:ixtlanjaan@gmail.com">ixtlanjaan@gmail.com</a></li>
+                        <li><strong>Instagram:</strong> <a href="https://www.instagram.com/flowersfromouterspace" target="_blank" rel="noopener noreferrer">@flowersfromouterspace</a></li>
+                        <li><strong>IMDb:</strong> <a href="https://www.imdb.com/name/nm5376127/" target="_blank" rel="noopener noreferrer">imdb.com/name/nm5376127</a></li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="footer-nav">
+            <a data-nav="coaching">Coaching</a>
+            <a data-nav="about">About</a>
+            <a data-nav="contact">Contact</a>
+        </div>
+        <p class="made-with">Made with Squarespace · replica test v3</p>
+    </footer>
+
+    <script>
+        var PAGES = ["home", "work", "coaching", "about", "contact"];
+
+        function showPage(name) {
+            PAGES.forEach(function (n) {
+                var p = document.getElementById("page-" + n);
+                if (p) p.classList.toggle("active", n === name);
+            });
+            document.querySelectorAll("[data-nav]").forEach(function (el) {
+                el.classList.toggle("active", el.getAttribute("data-nav") === name);
+            });
+            window.scrollTo({ top: 0, behavior: "auto" });
+        }
+
+        document.querySelectorAll("[data-nav]").forEach(function (el) {
+            el.addEventListener("click", function () {
+                showPage(el.getAttribute("data-nav"));
+            });
+        });
+
+        showPage("home");
+    </script>
+
+</body>
+</html>
